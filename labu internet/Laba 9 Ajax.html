@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://mynoobcode.000webhostapp.com/laba9.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Laba 9 Ajax</title>
+	<link rel="icon" type="image/png" href="https://mynoobcode.000webhostapp.com/igf.png">
+	
+	<link rel="stylesheet" href="./Laba 9 Ajax_files/style.css">
+	<link rel="stylesheet" href="./Laba 9 Ajax_files/bootstrap.min.css">
+  	<script src="./Laba 9 Ajax_files/jquery.min.js.завантаження"></script>
+  	<script src="./Laba 9 Ajax_files/bootstrap.min.js.завантаження"></script>
+  	<script>
+	  	src ="https://code.jquery.com/jquery-3.4.1.min.js"
+	  	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
+	  	crossorigin="anonymous">  		
+  	</script>
+  	<style>
+  		body{
+  			background-image: url(blue-bg-website-testimnonial.jpg);
+  			background-size: 100%;
+			background-attachment: fixed;
+			background-repeat: no-repeat;
+			-webkit-background-size: cover;
+		       -moz-background-size: cover;
+		       -o-background-size: cover;
+		    background-size: cover;
+  		}
+  		h3{
+  			background-color: #f39c12;
+  		}
+  		.main_info{
+  			background-color: rgba(255, 255, 255, .8);
+
+  			margin-left: 30%;
+  			margin-right: 30%;
+ 	 
+  		}
+  	</style>
+</head>
+<body>
+
+	
+
+	<div class="main_info">
+		<br>
+		<div style="padding-left: 10%; padding-right: 10%; line-height: 1.6;">
+			<h3>Simple calc</h3>
+			<form> 
+				num1 =<input class="form-control" type="text" id="num1"><br>
+				num2 =<input class="form-control" type="text" id="num2"><br>		
+			</form>
+			<input type="button" class="btn btn-info" value="Click" onclick="post();" id="button">		
+		</div>
+		<div style="padding-left: 10%; padding-right: 10%; margin-top: 20px; line-height: 1.6; background-color:#3498db; color: #fff; text-align: center;">
+			<div id="result"></div>
+		</div><br><br>
+
+		
+
+			<script>
+				
+				$('#button').click(function(){
+					var num1=$('#num1').val();
+					var num2=$('#num2').val();
+
+					var suma;
+					num2 = document.getElementById('num2').value;
+					num2 = parseInt(num2);
+					num1 = document.getElementById('num1').value;
+					num1 = parseInt(num1);
+					suma=num1+num2;
+
+					$.ajax({
+						type: 'POST',
+						url:'a1.php',
+						data:"result=" + num1 + '&num2=' + num2 + '&suma=' + suma,
+						success:function(data){
+							$('#result').html(data);
+						}
+					});
+				});
+			</script>
+
+
+			<!----------9_2--------->
+		<div style="padding-left: 10%; padding-right: 10%; line-height: 1.6;">
+			<h3>Your age</h3>
+			<form> 
+				Your birth is:<input class="form-control" type="text" id="birth_date" placeholder="2020-12-20"><br>			
+			</form>
+			<input type="button" class="btn btn-info" value="Click" onclick="calculate_age()">		
+		</div>
+		<div style="padding-left: 10%; padding-right: 10%; margin-top: 20px; line-height: 1.6; background-color:#3498db; color: #fff; text-align: center;">
+			<div id="result23"></div>
+		</div><br><br>
+
+		
+
+			<script>
+				
+				function calculate_age(){
+
+					var birth_date = new Date(document.getElementById("birth_date").value);
+					var birth_date_day = birth_date.getDate();
+					var birth_date_month = birth_date.getMonth()
+					var birth_date_year = birth_date.getFullYear();
+
+					var today_date = new Date();
+					var today_day = today_date.getDate();
+					var today_month = today_date.getMonth();
+					var today_year = today_date.getFullYear();
+
+					var calculated_age=0;
+
+					if (today_month > birth_date_month){ 
+						calculated_age = today_year - birth_date_year;
+					}
+					else if (today_month == birth_date_month){
+						if (today_day >= birth_date_day){ 
+							calculated_age = today_year - birth_date_year;
+						}
+					    else calculated_age = today_year - birth_date_year - 1;
+					}
+					else calculated_age = today_year - birth_date_year - 1;
+
+					var age=calculated_age;
+
+					$.ajax({
+                        type: 'POST',
+						url:'a2.php',
+						data:"age=" + age,
+						success:function(data){
+							$('#result23').html(data);
+						}
+					});
+				};
+			</script>
+
+
+		<!----------9_3--------->
+		
+		<div style="padding-left: 10%; padding-right: 10%; line-height: 1.6;">
+			<h3 style="">Perfect body weight</h3>
+			<form> 
+				<p>Please select your gender:</p>
+				<input type="radio" id="gender" name="gender" value="male"> <label for="male">Male</label><br>
+				<input type="radio" id="gender" name="gender" value="female"> <label for="female">Female</label><br>
+				<p>Please enter your height:</p>
+			    <input type="text" class="form-control" id="height"><br>		    		
+			</form>
+			<input type="button" class="btn btn-info" value="Ідеальна вага" onclick="calculate_weight()">
+		</div>
+
+		<div style="padding-left: 10%; padding-right: 10%; margin-top: 20px; line-height: 1.6; background-color:#3498db; color: #fff; text-align: center;">
+			<div id="result3"></div>
+			<div id="result32"><p></p></div>
+		</div><br><br>
+
+			<script>
+	        function calculate_weight(){
+	            // var gender=$('#gender').val();            
+	            var height=$('#height').val();
+	            // var pica;
+
+	            var trio = document.forms[2];
+			  	var txt = "";
+			  	var i;
+			  	for (i = 0; i < trio.length; i++) {
+			    	if (trio[i].checked) {
+			      		gendr = txt + trio[i].value + " ";
+			    	}
+			  	}
+			  	
+				// document.getElementById("result32").value = "You: " + gendr;
+	            
+
+	            $.ajax({
+	                type: 'POST',
+	                url: 'a3.php',
+	                data: 'gendr=' + gendr + '&height=' + height,
+	                success: function(data){
+	                    $('#result3').html(data);
+	                }
+	            });
+	        }
+	    </script>
+
+
+	<!----------9_4--------->
+	    
+		<div style="padding-left: 10%; padding-right: 10%; line-height: 1.6;">
+		<h3>Perfect body weight v.2</h3>	
+			<form> 
+				<p>Please select your gender:</p>
+				<input type="radio" id="gender" name="gender" value="male"> <label for="male">Male</label><br>
+				<input type="radio" id="gender" name="gender" value="female"> <label for="female">Female</label><br>
+				<p>Please enter your height:</p>
+			    <input type="range" class="form-control" id="heightr" min="150" max="220" step="1"><br>		    		
+			</form>
+			<input type="button" class="btn btn-info" value="Ідеальна вага" onclick="calculate_weight4()">
+		</div>
+
+		<div style="padding-left: 10%; padding-right: 10%; margin-top: 20px; padding-bottom: 10%; line-height: 1.6; background-color:#3498db; color: #fff; text-align: center;">
+			<div id="resultfour"></div>
+			<div id="result2"><p></p></div>
+		</div>
+
+			<script>
+	        function calculate_weight4(){
+	            // var gender=$('#gender').val();            
+	            var heightr=$('#heightr').val();
+	            // var pica;
+
+	            var trios = document.forms[3];
+			  	var txts = "";
+			  	var is;
+			  	for (i = 0; i < trios.length; i++) {
+			    	if (trios[i].checked) {
+			      		gendre = txts + trios[i].value + " ";
+			    	}
+			  	}
+			  	
+				document.getElementById("result2").value = "You: " + gendre;
+	            
+
+	            $.ajax({
+	                type: 'POST',
+	                url: 'a4.php',
+	                data: 'gendre=' + gendre + '&heightr=' + heightr,
+	                success: function(data){
+	                    $('#resultfour').html(data);
+	                }
+	            });
+	        }
+	    </script>
+	</div>
+		
+
+
+	
+
+
+
+
+</body></html>
